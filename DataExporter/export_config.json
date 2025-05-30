@@ -1,4 +1,10 @@
 {
+  "jdbc": {
+    "url": "jdbc:sqlserver://your-server;databaseName=your-database",
+    "username": "your-username",
+    "password": "your-password",
+    "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+  },
   "outputDirectory": "path/to/export/directory",
   "exports": [
     {
