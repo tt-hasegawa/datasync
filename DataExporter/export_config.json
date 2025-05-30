@@ -1,0 +1,13 @@
+{
+  "outputDirectory": "path/to/export/directory",
+  "exports": [
+    {
+      "outputFile": "output1.csv",
+      "sql": "SELECT column1, column2 FROM table1 WHERE condition1"
+    },
+    {
+      "outputFile": "output2.csv",
+      "sql": "SELECT columnA, columnB FROM table2 WHERE condition2"
+    }
+  ]
+}

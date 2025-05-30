@@ -1,0 +1,3 @@
+# Ignore Java runtime environment and jar files
+Tools/jre/
+Tools/lib/*.jar
