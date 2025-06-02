@@ -19,16 +19,20 @@ class ImportTool {
             config.imports.each { importConfig ->
                 def inputFilePath = importConfig.filePath
                 def tableName = importConfig.tableName
+                def deleteBeforeInsert = importConfig.deleteBeforeInsert // DELETEフラグ
+
+                if (deleteBeforeInsert) {
+                    sqlConnection.execute("DELETE FROM ${tableName}".toString())
+                    println "Deleted all records from table: ${tableName}"
+                }
 
                 def lines = Files.readAllLines(Paths.get(inputFilePath), java.nio.charset.StandardCharsets.UTF_8)
-                def headers = lines[0].split(",")
+                def headers = lines[0].split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/)
 
                 def insertQuery = "INSERT INTO ${tableName} (${headers.join(",")}) VALUES (${headers.collect { "?" }.join(",")})"
-                // デバッグ用にクエリを出力
-                println "Executing query: ${insertQuery}"
 
                 lines.drop(1).each { line ->
-                    def values = line.split(",").collect { it.replaceAll("\"", "") }
+                    def values = line.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).collect { it.replaceAll("\"", "") }
                     sqlConnection.execute(insertQuery, values)
                 }
 

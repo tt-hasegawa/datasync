@@ -8,11 +8,13 @@
   "imports": [
     {
       "filePath": "../dump/TBL01.csv",
-      "tableName": "TEST01"
+      "tableName": "TEST01",
+      "deleteBeforeInsert": true
     },
     {
       "filePath": "../dump/TBL02.csv",
-      "tableName": "TEST02"
+      "tableName": "TEST02",
+      "deleteBeforeInsert": false
     }
   ]
 }
