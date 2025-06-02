@@ -1,0 +1,19 @@
+{
+  "jdbc": {
+    "url": "jdbc:sqlserver://localhost\\example;databaseName=testdb;encrypt=true;trustServerCertificate=true",
+    "username": "testuser",
+    "password": "testpass",
+    "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+  },
+  "outputDirectory": "..\\dump",
+  "exports": [
+    {
+      "outputFile": "TBL01.csv",
+      "sql": "SELECT * FROM TBL01"
+    },
+    {
+      "outputFile": "TBL02.csv",
+      "sql": "SELECT * FROM TBL02"
+    }
+  ]
+}

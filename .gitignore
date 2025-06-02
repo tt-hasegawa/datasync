@@ -1,3 +1,6 @@
 # Ignore Java runtime environment and jar files
 Tools/jre/
 Tools/lib/*.jar
+DataExporter/export_config.json
+DataImporter/import_config.json
+dump/*

@@ -1,0 +1,18 @@
+{
+  "jdbc": {
+    "url": "jdbc:oracle:thin:@oracledb:1521/oradb",
+    "username": "scott",
+    "password": "tiger",
+    "driver": "oracle.jdbc.OracleDriver"
+  },
+  "imports": [
+    {
+      "filePath": "../dump/TBL01.csv",
+      "tableName": "TEST01"
+    },
+    {
+      "filePath": "../dump/TBL02.csv",
+      "tableName": "TEST02"
+    }
+  ]
+}

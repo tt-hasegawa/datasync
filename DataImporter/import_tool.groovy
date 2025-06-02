@@ -1,37 +1,39 @@
 import groovy.sql.Sql
+import groovy.json.JsonSlurper
 import java.nio.file.Files
 import java.nio.file.Paths
 
 class ImportTool {
     static void main(String[] args) {
         try {
-            def jdbcUrl = args[0] // JDBC URL
-            def jdbcUser = args[1] // JDBC ユーザー名
-            def jdbcPassword = args[2] // JDBC パスワード
-            def jdbcDriver = args[3] // JDBC ドライバ
-            def inputFilePath = args[4] // インポートするCSVファイルのパス
-            def tableName = args[5] // インポート先のテーブル名
+            def configFilePath = args[0] // JSON設定ファイルのパス
+            def config = new JsonSlurper().parse(new File(configFilePath))
 
             def sqlConnection = Sql.newInstance(
-                jdbcUrl,
-                jdbcUser,
-                jdbcPassword,
-                jdbcDriver
+                config.jdbc.url,
+                config.jdbc.username,
+                config.jdbc.password,
+                config.jdbc.driver
             )
 
-            def lines = Files.readAllLines(Paths.get(inputFilePath), java.nio.charset.StandardCharsets.UTF_8)
-            def headers = lines[0].split(",")
+            config.imports.each { importConfig ->
+                def inputFilePath = importConfig.filePath
+                def tableName = importConfig.tableName
 
-            def insertQuery = "INSERT INTO ${tableName} (${headers.join(",")}) VALUES (${headers.collect { "?" }.join(",")})"
+                def lines = Files.readAllLines(Paths.get(inputFilePath), java.nio.charset.StandardCharsets.UTF_8)
+                def headers = lines[0].split(",")
 
-            sqlConnection.withBatch(insertQuery) { ps ->
+                def insertQuery = "INSERT INTO ${tableName} (${headers.join(",")}) VALUES (${headers.collect { "?" }.join(",")})"
+                // デバッグ用にクエリを出力
+                println "Executing query: ${insertQuery}"
+
                 lines.drop(1).each { line ->
-                    def values = line.split(",").collect { it.replaceAll("\\"", "") }
-                    ps.addBatch(values)
+                    def values = line.split(",").collect { it.replaceAll("\"", "") }
+                    sqlConnection.execute(insertQuery, values)
                 }
-            }
 
-            println "Imported: ${inputFilePath} into table ${tableName}"
+                println "Imported: ${inputFilePath} into table ${tableName}"
+            }
 
             sqlConnection.close()
             System.exit(0) // 正常終了

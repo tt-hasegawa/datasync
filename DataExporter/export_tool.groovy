@@ -23,12 +23,19 @@ class ExportTool {
                 def outputFile = new File(outputDirectory, exportConfig.outputFile)
                 def query = exportConfig.sql
 
+                def rowIndex = 0 // 行インデックスの初期化
                 outputFile.withWriter("UTF-8") { writer ->
                     sqlConnection.eachRow(query) { row ->
-                        if (writer.getLineNumber() == 0) {
-                            writer.writeLine(row.keySet().join(",")) // ヘッダー行
+                        if (rowIndex++ == 0) {
+                            def metaData = row.getMetaData()
+                            def columnNames = (1..metaData.columnCount).collect { metaData.getColumnName(it) }
+                            writer.writeLine(columnNames.collect { "\"${it}\"" }.join(",")) // ヘッダー行
                         }
-                        writer.writeLine(row.values().collect { it?.toString()?.replaceAll(",", "\\,") }.join(","))
+                        writer.writeLine(
+                            row.toRowResult().values().collect { 
+                                "\"${it?.toString()?.replaceAll("\"", "\"\"")}\""
+                            }.join(",")
+                        )
                     }
                 }
 
