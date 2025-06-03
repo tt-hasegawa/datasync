@@ -4,3 +4,4 @@ Tools/lib/*.jar
 DataExporter/export_config.json
 DataImporter/import_config.json
 dump/*
+release.bat
