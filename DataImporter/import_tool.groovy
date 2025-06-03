@@ -20,6 +20,7 @@ class ImportTool {
                 def inputFilePath = importConfig.filePath
                 def tableName = importConfig.tableName
                 def deleteBeforeInsert = importConfig.deleteBeforeInsert // DELETEフラグ
+                def columnMapping = importConfig.columnMapping // 列定義マッピング
 
                 if (deleteBeforeInsert) {
                     sqlConnection.execute("DELETE FROM ${tableName}".toString())
@@ -28,8 +29,10 @@ class ImportTool {
 
                 def lines = Files.readAllLines(Paths.get(inputFilePath), java.nio.charset.StandardCharsets.UTF_8)
                 def headers = lines[0].split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/)
-
-                def insertQuery = "INSERT INTO ${tableName} (${headers.join(",")}) VALUES (${headers.collect { "?" }.join(",")})"
+                // headersから前後のクォートを削除
+                headers = headers.collect { it.replaceAll(/^"|"$/, "") }
+                def mappedHeaders = headers.collect { columnMapping[it] ?: it } // マッピング適用
+                def insertQuery = "INSERT INTO ${tableName} (${mappedHeaders.join(",")}) VALUES (${mappedHeaders.collect { "?" }.join(",")})"
 
                 lines.drop(1).each { line ->
                     def values = line.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).collect { it.replaceAll("\"", "") }

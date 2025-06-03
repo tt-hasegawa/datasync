@@ -9,12 +9,20 @@
     {
       "filePath": "../dump/TBL01.csv",
       "tableName": "TEST01",
-      "deleteBeforeInsert": true
+      "deleteBeforeInsert": true,
+      "columnMapping": {
+        "CSV_COLUMN1": "TABLE_COLUMN1",
+        "CSV_COLUMN2": "TABLE_COLUMN2"
+      }
     },
     {
       "filePath": "../dump/TBL02.csv",
       "tableName": "TEST02",
-      "deleteBeforeInsert": false
+      "deleteBeforeInsert": false,
+      "columnMapping": {
+        "CSV_COLUMN_A": "TABLE_COLUMN_A",
+        "CSV_COLUMN_B": "TABLE_COLUMN_B"
+      }
     }
   ]
 }
