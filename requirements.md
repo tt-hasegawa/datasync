@@ -99,3 +99,34 @@ WHERE
 1. `run_import.bat` を実行。
 2. 第一引数にインポートするCSVファイルのパス、第二引数にインポート先のテーブル名を指定。
 
+## 14. インポートツールの拡張仕様（2025-06-11修正）
+
+- **複数ファイルインポート対応**: 1つのテーブル定義（1つのimport定義）で複数CSVファイル（filePaths配列）を順次取り込むことができる。
+- **deleteBeforeInsertの条件指定**:
+    - 空文字列（""）: 削除処理を行わない。
+    - アスタリスク（"*"）: テーブル全件DELETE。
+    - 任意の文字列: その内容をWHERE句に追記してDELETE文を実行（例: "COL1 = 'A' AND COL2 > 0"）。
+- **import_config.json例**:
+```json
+{
+  "imports": [
+    {
+      "filePaths": ["file1.csv", "file2.csv"],
+      "tableName": "TBL01",
+      "deleteBeforeInsert": "*",
+      "columnMapping": { "COL1": {"type": "csv", "value": "CSV1"} }
+    },
+    {
+      "filePaths": ["file3.csv"],
+      "tableName": "TBL01",
+      "deleteBeforeInsert": "COL1 = 'A'",
+      "columnMapping": { "COL1": {"type": "csv", "value": "CSV1"} }
+    }
+  ]
+}
+```
+- **動作例**:
+    1. 1つ目のimport定義でTBL01を全件削除し、file1.csv, file2.csvを順次インポート。
+    2. 2つ目のimport定義でTBL01の条件付きDELETE後、file3.csvをインポート。
+- **テスト**: test_import_config.json, test_import_tool.groovyで上記仕様の自動テストを実装。
+

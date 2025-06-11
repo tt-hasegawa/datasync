@@ -7,21 +7,32 @@
   },
   "imports": [
     {
-      "filePath": "../dump/TBL01.csv",
+      "filePaths": ["../dump/TBL01_1.csv"],
       "tableName": "TEST01",
-      "deleteBeforeInsert": true,
+      "deleteBeforeInsert": "*",
       "columnMapping": {
-        "CSV_COLUMN1": "TABLE_COLUMN1",
-        "CSV_COLUMN2": "TABLE_COLUMN2"
+        "TABLE_COLUMN1": { "type": "csv", "value": "CSV_COLUMN1" },
+        "TABLE_COLUMN2": { "type": "fixed", "value": "固定値" },
+        "TABLE_COLUMN3": { "type": "edit", "csv": "CSV_COLUMN3", "sql": "REPLACE('?', '-', '/')" }
       }
     },
     {
-      "filePath": "../dump/TBL02.csv",
-      "tableName": "TEST02",
-      "deleteBeforeInsert": false,
+      "filePaths": ["../dump/TBL01_2.csv"],
+      "tableName": "TEST01",
+      "deleteBeforeInsert": "TABLE_COLUMN1 LIKE 'A%'",
       "columnMapping": {
-        "CSV_COLUMN_A": "TABLE_COLUMN_A",
-        "CSV_COLUMN_B": "TABLE_COLUMN_B"
+        "TABLE_COLUMN1": { "type": "csv", "value": "CSV_COLUMN1" },
+        "TABLE_COLUMN2": { "type": "fixed", "value": "固定値" },
+        "TABLE_COLUMN3": { "type": "edit", "csv": "CSV_COLUMN3", "sql": "REPLACE('?', '-', '/')" }
+      }
+    },
+    {
+      "filePaths": ["../dump/TBL02.csv"],
+      "tableName": "TEST02",
+      "deleteBeforeInsert": "",
+      "columnMapping": {
+        "TABLE_COLUMN_A": { "type": "csv", "value": "CSV_COLUMN_A" },
+        "TABLE_COLUMN_B": { "type": "fixed", "value": "固定値B" }
       }
     }
   ]

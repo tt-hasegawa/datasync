@@ -4,6 +4,12 @@ import groovy.json.JsonSlurper
 class ExportTool {
     static void main(String[] args) {
         try {
+            // JDBCドライバのロード
+            Class.forName("org.h2.Driver")
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver")
+            Class.forName("oracle.jdbc.OracleDriver")
+            Class.forName("org.postgresql.Driver")
+
             def configFilePath = args[0] // JSON設定ファイルのパス
             def config = new JsonSlurper().parse(new File(configFilePath))
 

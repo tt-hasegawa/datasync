@@ -10,6 +10,6 @@ for %%f in (..\Tools\lib\*.jar) do (
 )
 
 REM エクスポートツールの実行
-java -cp !CLASSPATH! groovy.ui.GroovyMain export_tool.groovy export_config.json
+java -cp !CLASSPATH! groovy.ui.GroovyMain ExportTool.groovy export_config.json
 
 endlocal

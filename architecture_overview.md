@@ -48,3 +48,13 @@ graph TD
 
     Tools --> ExecutionFlow
 ```
+
+---
+
+## 2025-06-11 拡張仕様
+
+- DataImporterは1つのimport定義で複数ファイル（filePaths配列）を順次インポート可能。
+- deleteBeforeInsertは空文字・"*"・任意条件（WHERE句）に対応。
+- 設定例・詳細は import_config.example.json 参照。
+
+---

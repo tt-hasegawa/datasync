@@ -35,3 +35,15 @@
    - インポートツールを実行し、CSVファイルをデータベースに取り込み
 
 ---
+
+## 2025-06-11 仕様拡張
+
+### インポートツールの新機能
+- 1つのテーブル定義で複数CSVファイル（filePaths配列）を順次インポート可能。
+- deleteBeforeInsertで削除条件を柔軟に指定可能：
+    - 空文字列: 削除なし
+    - "*": 全件削除
+    - 任意の条件: WHERE句としてDELETE実行
+- 詳細は import_config.example.json, test_import_config.json を参照。
+
+---

@@ -11,6 +11,6 @@ for %%f in (..\Tools\lib\*.jar) do (
 
 echo !CLASSPATH!
 REM インポートツールの実行
-java -cp !CLASSPATH! groovy.ui.GroovyMain import_tool.groovy import_config.json
+java -cp !CLASSPATH! groovy.ui.GroovyMain ImportTool.groovy import_config.json
 
 endlocal

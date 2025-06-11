@@ -1,0 +1,15 @@
+{
+  "jdbc": {
+    "url": "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1",
+    "username": "sa",
+    "password": "",
+    "driver": "org.h2.Driver"
+  },
+  "outputDirectory": "../test/dump",
+  "exports": [
+    {
+      "outputFile": "test_table.csv",
+      "sql": "SELECT * FROM TEST_TABLE"
+    }
+  ]
+}
