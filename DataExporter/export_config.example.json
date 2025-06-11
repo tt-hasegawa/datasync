@@ -1,4 +1,5 @@
 {
+  "debug": false,
   "jdbc": {
     "url": "jdbc:sqlserver://localhost\\example;databaseName=testdb;encrypt=true;trustServerCertificate=true",
     "username": "testuser",

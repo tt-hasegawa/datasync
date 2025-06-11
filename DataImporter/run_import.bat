@@ -14,3 +14,4 @@ REM インポートツールの実行
 java -cp !CLASSPATH! groovy.ui.GroovyMain ImportTool.groovy import_config.json
 
 endlocal
+pause

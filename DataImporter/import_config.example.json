@@ -1,4 +1,5 @@
 {
+  "debug": true,
   "jdbc": {
     "url": "jdbc:oracle:thin:@oracledb:1521/oradb",
     "username": "scott",
@@ -11,9 +12,9 @@
       "tableName": "TEST01",
       "deleteBeforeInsert": "*",
       "columnMapping": {
-        "TABLE_COLUMN1": { "type": "csv", "value": "CSV_COLUMN1" },
-        "TABLE_COLUMN2": { "type": "fixed", "value": "固定値" },
-        "TABLE_COLUMN3": { "type": "edit", "csv": "CSV_COLUMN3", "sql": "REPLACE('?', '-', '/')" }
+        "TABLE_COLUMN1": { "type": "csv", "value": "CSV_COLUMN1", "dataType": "string" },
+        "TABLE_COLUMN2": { "type": "fixed", "value": "123", "dataType": "numeric" },
+        "TABLE_COLUMN3": { "type": "edit", "csv": "CSV_COLUMN3", "sql": "REPLACE('?', '-', '/')", "dataType": "string" }
       }
     },
     {
@@ -21,9 +22,9 @@
       "tableName": "TEST01",
       "deleteBeforeInsert": "TABLE_COLUMN1 LIKE 'A%'",
       "columnMapping": {
-        "TABLE_COLUMN1": { "type": "csv", "value": "CSV_COLUMN1" },
-        "TABLE_COLUMN2": { "type": "fixed", "value": "固定値" },
-        "TABLE_COLUMN3": { "type": "edit", "csv": "CSV_COLUMN3", "sql": "REPLACE('?', '-', '/')" }
+        "TABLE_COLUMN1": { "type": "csv", "value": "CSV_COLUMN1", "dataType": "string" },
+        "TABLE_COLUMN2": { "type": "fixed", "value": "456", "dataType": "numeric" },
+        "TABLE_COLUMN3": { "type": "edit", "csv": "CSV_COLUMN3", "sql": "REPLACE('?', '-', '/')", "dataType": "string" }
       }
     },
     {
@@ -31,8 +32,8 @@
       "tableName": "TEST02",
       "deleteBeforeInsert": "",
       "columnMapping": {
-        "TABLE_COLUMN_A": { "type": "csv", "value": "CSV_COLUMN_A" },
-        "TABLE_COLUMN_B": { "type": "fixed", "value": "固定値B" }
+        "TABLE_COLUMN_A": { "type": "csv", "value": "CSV_COLUMN_A", "dataType": "string" },
+        "TABLE_COLUMN_B": { "type": "fixed", "value": "789", "dataType": "numeric" }
       }
     }
   ]

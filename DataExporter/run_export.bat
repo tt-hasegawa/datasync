@@ -13,3 +13,4 @@ REM エクスポートツールの実行
 java -cp !CLASSPATH! groovy.ui.GroovyMain ExportTool.groovy export_config.json
 
 endlocal
+pause

@@ -18,8 +18,8 @@ class TestExportTool {
         )
 
         // テスト用のテーブル作成
-        sqlConnection.execute("CREATE TABLE TEST_TABLE (COLUMN1 VARCHAR(255), COLUMN2 VARCHAR(255))")
-        sqlConnection.execute("INSERT INTO TEST_TABLE VALUES ('value1', 'value2')")
+        sqlConnection.execute("CREATE TABLE TEST_TABLE (COLUMN1 VARCHAR(255), COLUMN2 INT)")
+        sqlConnection.execute("INSERT INTO TEST_TABLE VALUES ('value1', 123)")
 
         // エクスポートツールの実行
         def exportTool = new ExportTool()
@@ -30,7 +30,7 @@ class TestExportTool {
         assert exportedFile.exists()
         def lines = Files.readAllLines(exportedFile.toPath())
         assert lines[0] == '"COLUMN1","COLUMN2"'
-        assert lines[1] == '"value1","value2"'
+        assert lines[1] == '"value1","123"'
 
         println "Export tool test passed."
     }

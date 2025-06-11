@@ -1,1 +1,31 @@
-{"jdbc":{"url":"jdbc:h2:mem:testdb","username":"sa","password":"","driver":"org.h2.Driver"},"imports":[{"filePaths":["../test/dump/test_table1.csv","../test/dump/test_table2.csv"],"tableName":"TEST_TABLE","deleteBeforeInsert":"COLUMN1 = 'value1'","columnMapping":{"COLUMN1":{"type":"csv","value":"CSV_COLUMN1"},"COLUMN2":{"type":"csv","value":"CSV_COLUMN2"}}}]}
+{
+    "jdbc": {
+        "url": "jdbc:h2:mem:testdb",
+        "username": "sa",
+        "password": "",
+        "driver": "org.h2.Driver"
+    },
+    "imports": [
+        {
+            "debug": true,
+            "filePaths": [
+                "../test/dump/test_table1.csv",
+                "../test/dump/test_table2.csv"
+            ],
+            "tableName": "TEST_TABLE",
+            "deleteBeforeInsert": "COLUMN1 = 'value1'",
+            "columnMapping": {
+                "COLUMN1": {
+                    "type": "csv",
+                    "value": "CSV_COLUMN1",
+                    "dataType": "string"
+                },
+                "COLUMN2": {
+                    "type": "csv",
+                    "value": "CSV_COLUMN2",
+                    "dataType": "int"
+                }
+            }
+        }
+    ]
+}

@@ -24,6 +24,11 @@ class ExportTool {
                 config.jdbc.password,
                 config.jdbc.driver
             )
+            if (config.debug) {
+                println "JDBC URL: ${config.jdbc.url}"
+                println "JDBC Username: ${config.jdbc.username}"
+                println "JDBC Driver: ${config.jdbc.driver}"
+            }
 
             config.exports.each { exportConfig ->
                 def outputFile = new File(outputDirectory, exportConfig.outputFile)
@@ -36,6 +41,14 @@ class ExportTool {
                             def metaData = row.getMetaData()
                             def columnNames = (1..metaData.columnCount).collect { metaData.getColumnName(it) }
                             writer.writeLine(columnNames.collect { "\"${it}\"" }.join(",")) // ヘッダー行
+                            // デバッグモードの場合、ヘッダ行を表示
+                            if (config.debug) {
+                                println "Exporting headers: ${columnNames.join(", ")}"
+                            }
+                        }
+                        // デバッグモードの場合、データ行を表示
+                        if (config.debug) {
+                            println "Exporting row: ${rowIndex} - ${row.toRowResult()}"
                         }
                         writer.writeLine(
                             row.toRowResult().values().collect { 
